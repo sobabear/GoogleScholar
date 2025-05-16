@@ -51,6 +51,34 @@ querier.search(query: query) { result in
 }
 ```
 
+### Using Async/Await
+
+The package also supports Swift's modern concurrency model with async/await:
+
+```swift
+import GoogleScholar
+
+// Create a search query
+let query = ScholarQuery()
+query.author = "Albert Einstein"
+query.phrase = "quantum theory"
+query.limit = 5
+
+// Create a querier and perform the search using async/await
+let querier = ScholarQuerier()
+do {
+    let articles = try await querier.search(query: query)
+    for article in articles {
+        print(article.title)
+        print(article.url)
+        print(article.year)
+        print(article.citations)
+    }
+} catch {
+    print("Error: \(error)")
+}
+```
+
 ### Command Line Usage
 
 The package includes a command line example that mimics the functionality of the original Python script. You can find it in the Examples directory.
